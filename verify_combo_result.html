@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+  <style>
+    .wrap { max-width: 900px; margin: 100px auto 40px auto; padding: 0 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 16px; }
+    .card { padding: 16px; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    .label { font-weight: 700; opacity: .9; margin-bottom: 8px; text-transform: uppercase; font-size: .85rem; }
+    .score { font-size: 2rem; font-weight: 800; }
+    .kv { margin: 6px 0; opacity: .9; }
+    img.preview { max-width: 100%; border-radius: 10px; display: block; }
+    .actions { margin-top: 16px; display: flex; gap: 12px; }
+    .btn { padding: 10px 16px; border-radius: 10px; border: none; color: #fff; font-weight: 600; cursor: pointer; background: #1E88E5; }
+    .btn:hover { background: #1976D2; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(30, 136, 229, 0.4); }
+    body:not(.dark-mode) .card { background: #ffffff; border: 1px solid #e6e6e6; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+  </style>
+  <div class="wrap">
+    <h2>Combined Verification Result</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="label">Text</div>
+        <div class="score">{{ text_score if text_score is not none else '—' }}%</div>
+        <div class="kv">Verdict: <strong>{{ text_label }}</strong></div>
+        {% if text %}<div class="kv">Snippet: {{ text[:240] }}{% if text|length > 240 %}…{% endif %}</div>{% endif %}
+      </div>
+      <div class="card">
+        <div class="label">Image</div>
+        <div class="score">{{ image_score if image_score is not none else '—' }}%</div>
+        <div class="kv">Verdict: <strong>{{ image_label }}</strong></div>
+        {% if image_filename %}
+          <img class="preview" src="{{ image_filename }}" alt="uploaded image" />
+        {% endif %}
+      </div>
+      <div class="card">
+        <div class="label">Combined</div>
+        <div class="score">{{ combined_score if combined_score is not none else '—' }}%</div>
+        <div class="kv">Verdict: <strong>{{ combined_label }}</strong></div>
+        <div class="kv small">Combined score = average of text and image probabilities. Label rule: ≥ 60% → AI-generated; below 60% → Human-created.</div>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="btn" href="/report?type=combo&text_score={{ text_score }}&text_label={{ text_label }}&image_score={{ image_score }}&image_label={{ image_label }}&combined_score={{ combined_score }}&combined_label={{ combined_label }}">Download Report</a>
+      <a class="btn" style="background:#6c757d" href="/verify_combo">Back</a>
+    </div>
+  </div>
+{% endblock %}
+

@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <style>
+    .index-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .index-container h2 {
+      color: #ffffff;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    
+    .index-container p {
+      color: #e0e0e0;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .index-button {
+      padding: 15px 35px;
+      font-size: 18px;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      background-color: #4b6fff;
+      color: white;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .index-button:hover {
+      background-color: #3a55d1;
+    }
+    
+    .admin-button {
+      background-color: #ff006e;
+    }
+    
+    .admin-button:hover {
+      background-color: #cc0056;
+    }
+
+    /* Light mode overrides */
+    body:not(.dark-mode) .index-container h2 {
+      color: #222222;
+    }
+    body:not(.dark-mode) .index-container p {
+      color: #555555;
+    }
+  </style>
+  
+  <div class="index-container">
+    <h2>Welcome to RealityCheck</h2>
+    <p>Verify the authenticity of text, images, and videos before sharing.</p>
+    <div class="button-group">
+      <a href="/login"><button class="index-button">Login</button></a>
+      <a href="/register"><button class="index-button">Register</button></a>
+      <a href="/admin_login"><button class="index-button admin-button">Admin Login</button></a>
+    </div>
+  </div>
+{% endblock %}

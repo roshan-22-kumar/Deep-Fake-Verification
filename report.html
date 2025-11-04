@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RealityCheck Report</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; color: #222; }
+    h1 { margin-bottom: 4px; }
+    .muted { color: #666; font-size: 0.9rem; }
+    .section { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 16px 0; }
+    .kv { margin: 6px 0; }
+    code { word-break: break-all; }
+    .small { font-size: 0.85rem; color: #444; }
+    .download { margin-top: 16px; }
+    .btn { padding: 10px 14px; border-radius: 8px; background:#1E88E5; color:#fff; border:none; cursor:pointer }
+  </style>
+  <script>
+  function printReport(){ window.print(); }
+  </script>
+</head>
+<body>
+  <h1>RealityCheck Chain-of-Evidence Report</h1>
+  <div class="muted">Generated: {{ timestamp }}</div>
+
+  <div class="section">
+    <div class="kv"><strong>Type</strong>: {{ report_type }}</div>
+    {% if label %}<div class="kv"><strong>Verdict</strong>: {{ label }}</div>{% endif %}
+    {% if score is not none %}<div class="kv"><strong>Score</strong>: {{ score }}%</div>{% endif %}
+    {% if combined_label %}<div class="kv"><strong>Combined Verdict</strong>: {{ combined_label }}</div>{% endif %}
+    {% if combined_score is not none %}<div class="kv"><strong>Combined Score</strong>: {{ combined_score }}%</div>{% endif %}
+  </div>
+
+  {% if sha %}
+  <div class="section">
+    <div class="kv"><strong>SHA-256</strong>: <code>{{ sha }}</code></div>
+  </div>
+  {% endif %}
+
+  {% if image_sha %}
+  <div class="section">
+    <div class="kv"><strong>Image SHA-256</strong>: <code>{{ image_sha }}</code></div>
+  </div>
+  {% endif %}
+
+  <div class="section small">
+    <div class="kv"><strong>Threshold Policy</strong>: 60% and above → AI-generated; below → Human-created.</div>
+    <div class="kv"><strong>Model/Heuristic</strong>: Hugging Face pipelines when configured, else internal heuristics.</div>
+  </div>
+
+  <div class="download">
+    <button class="btn" onclick="printReport()">Print / Save as PDF</button>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <style>
+    .main-container {
+      text-align: center;
+      margin-top: 60px;
+      padding: 20px;
+      color: inherit;
+    }
+
+    .main-title {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: inherit;
+    }
+
+    .main-subtext {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      color: inherit;
+      opacity: 0.9;
+    }
+
+    .button-container {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .small { font-size: 0.85rem; opacity: 0.9; }
+
+    .verify-button {
+      background: #1E88E5;
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .verify-button:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(30, 136, 229, 0.4);
+    }
+
+    .logout-btn {
+      background: #E91E63;
+      margin-top: 30px;
+    }
+
+    .logout-btn:hover {
+      background: #c2185b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(233, 30, 99, 0.4);
+    }
+
+    /* Light mode overrides */
+    body:not(.dark-mode) .main-container {
+      color: #222222;
+    }
+    
+
+    body:not(.dark-mode) .main-subtext {
+      color: #555555;
+      opacity: 1;
+    }
+
+    body:not(.dark-mode) .main-title {
+      color: #222222;
+    }
+  </style>
+
+  <div class="main-container">
+    <h2 class="main-title">Welcome, {{ username }} 👋</h2>
+    <p class="main-subtext">Use the tools below to verify text, images, or videos for authenticity.</p>
+
+    <div class="button-container">
+      <a href="/verify_text"><button class="verify-button">📰 Verify Text</button></a>
+      <a href="/verify_image"><button class="verify-button">🖼 Verify Image</button></a>
+      <a href="/verify_video"><button class="verify-button">🎥 Verify Video</button></a>
+      <a href="/verify_audio"><button class="verify-button">🎤 Verify Audio</button></a>
+      <a href="/verify_combo"><button class="verify-button">🔗 Verify Image + Text</button></a>
+    </div>
+
+    
+
+    <div>
+      <a href="/logout"><button class="verify-button logout-btn">🚪 Logout</button></a>
+    </div>
+  </div>
+{% endblock %}
+

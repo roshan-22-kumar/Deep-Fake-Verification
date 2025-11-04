@@ -1,0 +1,147 @@
+{% extends "layout.html" %}
+{% block content %}
+  <style>
+    .verify-container {
+      max-width: 800px;
+      margin: 100px auto 40px auto;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .verify-container h2 {
+      color: inherit;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+
+    .verify-form {
+      background: rgba(255,255,255,0.05);
+      padding: 30px;
+      border-radius: 16px;
+      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .file-input-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .file-input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      border: 2px dashed rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.05);
+      color: inherit;
+      font-size: 16px;
+      cursor: pointer;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .file-input:hover {
+      border-color: #1E88E5;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .file-preview {
+      margin-top: 20px;
+      max-width: 100%;
+      border-radius: 12px;
+      max-height: 400px;
+      display: none;
+    }
+
+    .verify-btn {
+      margin-top: 20px;
+      padding: 14px 32px;
+      background: #1E88E5;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .verify-btn:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(30, 136, 229, 0.4);
+    }
+
+    .verify-btn:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #6c757d;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #5a6268;
+    }
+
+    /* Light mode overrides */
+    body:not(.dark-mode) .verify-form {
+      background: #ffffff;
+      border: 1px solid #e6e6e6;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    body:not(.dark-mode) .file-input {
+      border: 2px dashed #cfcfcf;
+      background: #f8f9fa;
+      color: #222222;
+    }
+
+    body:not(.dark-mode) .verify-container h2,
+    body:not(.dark-mode) .verify-container {
+      color: #222222;
+    }
+  </style>
+
+  <div class="verify-container">
+    <h2>🖼️ Verify Image</h2>
+    <div class="verify-form">
+      <form method="POST" enctype="multipart/form-data" id="imageForm">
+        <div class="file-input-wrapper">
+          <input type="file" name="image" accept="image/*" class="file-input" id="imageInput" required>
+          <img id="imagePreview" class="file-preview" alt="Preview">
+        </div>
+        <button type="submit" class="verify-btn" id="verifyBtn">🔍 Verify Image</button>
+      </form>
+      <a href="/main" class="back-btn">← Back to Main</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('imageInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const preview = document.getElementById('imagePreview');
+          preview.src = event.target.result;
+          preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+{% endblock %}

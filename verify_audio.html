@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+  <style>
+    .verify-container { max-width: 800px; margin: 100px auto 40px auto; padding: 40px; text-align: center; }
+    .verify-form { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    .file-input { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: inherit; }
+    .verify-btn { margin-top: 20px; padding: 14px 32px; background: #1E88E5; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+    .verify-btn:hover { background: #1976D2; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(30, 136, 229, 0.4); }
+    .back-btn { margin-top: 16px; padding: 12px 24px; background: #6c757d; color: white; border: none; border-radius: 12px; font-size: 14px; text-decoration: none; display: inline-block; }
+    /* Light mode */
+    body:not(.dark-mode) .verify-form { background: #ffffff; border: 1px solid #e6e6e6; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+    body:not(.dark-mode) .file-input { background: #ffffff; color: #222222; border: 1px solid #cfcfcf; }
+  </style>
+  <div class="verify-container">
+    <h2>🎤 Verify Audio</h2>
+    <div class="verify-form">
+      <form method="POST" enctype="multipart/form-data">
+        <input class="file-input" type="file" name="audio" accept=".mp3,.wav,.m4a,.ogg,.flac" required />
+        <button type="submit" class="verify-btn">🔍 Verify Audio</button>
+      </form>
+      <a href="/main" class="back-btn">← Back to Main</a>
+    </div>
+  </div>
+{% endblock %}
+

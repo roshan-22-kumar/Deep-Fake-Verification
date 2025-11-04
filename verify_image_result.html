@@ -1,0 +1,167 @@
+{% extends "layout.html" %}
+{% block content %}
+  <style>
+    .result-container {
+      max-width: 900px;
+      margin: 100px auto 40px auto;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .result-container h2 {
+      color: inherit;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+
+    .result-card {
+      background: rgba(255,255,255,0.05);
+      padding: 40px;
+      border-radius: 16px;
+      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .image-preview {
+      max-width: 100%;
+      border-radius: 12px;
+      margin: 20px 0;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .result-section {
+      margin: 30px 0;
+      padding: 25px;
+      border-radius: 12px;
+      background: rgba(76, 175, 80, 0.15);
+      border: 2px solid #4CAF50;
+    }
+
+    .result-text {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #4CAF50;
+      margin: 0;
+    }
+
+    .result-section.ai { background: rgba(233, 30, 99, 0.15); border-color: #21e91e; }
+    .result-section.ai .result-text { color: #6fe91e; }
+    .result-section.human { background: rgba(76, 175, 80, 0.15); border-color: #e51515; }
+    .result-section.human .result-text { color: #af4c4c; }
+
+    .score-section {
+      margin: 25px 0;
+      padding: 20px;
+      border-radius: 12px;
+      background: rgba(30, 136, 229, 0.15);
+      border: 2px solid #1E88E5;
+    }
+
+    .score-text {
+      font-size: 1.1rem;
+      color: inherit;
+      margin: 0;
+    }
+
+    .score-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1E88E5;
+      margin-top: 10px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      padding: 14px 32px;
+      border-radius: 12px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: #1E88E5;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(30, 136, 229, 0.4);
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #5a6268;
+    }
+
+    /* Light mode overrides */
+    body:not(.dark-mode) .result-card {
+      background: #ffffff;
+      border: 1px solid #e6e6e6;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    body:not(.dark-mode) .image-preview {
+      border: 1px solid #cfcfcf;
+    }
+
+    body:not(.dark-mode) .result-section {
+      background: rgba(76, 175, 80, 0.1);
+      border: 2px solid #4CAF50;
+    }
+
+    body:not(.dark-mode) .score-section {
+      background: rgba(30, 136, 229, 0.1);
+      border: 2px solid #1E88E5;
+    }
+
+    body:not(.dark-mode) .result-container h2,
+    body:not(.dark-mode) .result-container {
+      color: #222222;
+    }
+  </style>
+
+  <div class="result-container">
+    <h2>🖼️ Image Verification Result</h2>
+    <div class="result-card">
+      {% if image_filename %}
+      <img src="{{ image_filename }}" alt="Verified Image" class="image-preview">
+      {% endif %}
+
+      <div class="result-section {{ 'ai' if is_ai else 'human' }}">
+        <p class="result-text">{{ '✅ Human-created' if is_ai else '⚠️ AI-generated' }}</p>
+        
+      </div>
+
+      <div class="score-section">
+        <p class="score-text">AI Likelihood</p>
+        <p class="score-value">{{ score }}%</p>
+      </div>
+
+
+      <div class="action-buttons">
+        <a href="/verify_image" class="action-btn btn-primary">🔍 Verify Another Image</a>
+        <a href="/main" class="action-btn btn-secondary">← Back to Main</a>
+        <a href="/report?type=image&score={{ score }}&label={{ result_label }}" class="action-btn btn-primary">⬇️ Download Report</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
